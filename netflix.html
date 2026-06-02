@@ -1,53 +1,307 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Netflix Clone - Watch TV Shows Online</title>
-    <link rel="stylesheet" href="nstyle.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="nstyle.css">
+  <title>Netflix</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      font-family: Arial, Helvetica, sans-serif;
+      color: #fff;
+      background: #141414;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      z-index: 100;
+      background: rgba(20, 20, 20, 0.7);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      font-size: 14px;
+    }
+
+    .button-small {
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      padding: 8px 16px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: 100vh;
+      padding: 140px 40px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: linear-gradient(180deg, rgba(20, 20, 20, 0.4) 0%, rgba(20, 20, 20, 0.8) 100%),
+        url('https://assets.nflxext.com/ffe/siteui/vlv3/92d8dcf1-8fac-48f0-b060-c6d0f0ac5aab/41e7d7d9-c0a5-4c9f-a0cc-3ecff27ba3d6/US-en-20260325-popsignuptwoweeks-perspective_alpha_website_small.jpg') center/cover no-repeat;
+    }
+
+    .hero-content {
+      max-width: 660px;
+    }
+
+    .hero h1 {
+      font-size: clamp(48px, 7vw, 84px);
+      line-height: 1.02;
+      margin: 0 0 24px;
+    }
+
+    .hero p {
+      font-size: clamp(18px, 2vw, 24px);
+      margin: 0 0 32px;
+      max-width: 620px;
+      line-height: 1.4;
+      color: #e5e5e5;
+    }
+
+    .email-form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      max-width: 700px;
+    }
+
+    .email-form input {
+      flex: 1 1 320px;
+      min-width: 280px;
+      padding: 18px 20px;
+      border: 0;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .email-form button {
+      background: #e50914;
+      color: #fff;
+      border: 0;
+      border-radius: 4px;
+      padding: 18px 28px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .section {
+      padding: 80px 40px;
+      display: grid;
+      gap: 40px;
+    }
+
+    .feature {
+      display: grid;
+      gap: 32px;
+      align-items: center;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .feature:nth-child(even) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .feature-content h2 {
+      font-size: clamp(32px, 4vw, 56px);
+      margin: 0 0 16px;
+    }
+
+    .feature-content p {
+      font-size: 18px;
+      line-height: 1.6;
+      margin: 0;
+      max-width: 520px;
+      color: #e5e5e5;
+    }
+
+    .feature-media {
+      display: flex;
+      justify-content: center;
+    }
+
+    .feature-media img {
+      width: 100%;
+      max-width: 560px;
+      border-radius: 8px;
+    }
+
+    .genres {
+      padding: 40px;
+      background: #000;
+    }
+
+    .genres h2 {
+      font-size: 2rem;
+      margin-bottom: 28px;
+    }
+
+    .genre-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 18px;
+    }
+
+    .genre-card {
+      background: #222;
+      padding: 22px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    footer {
+      padding: 40px;
+      background: #000;
+      color: #737373;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 12px;
+      max-width: 640px;
+    }
+
+    @media (max-width: 860px) {
+      header {
+        padding: 16px 24px;
+      }
+
+      .hero {
+        padding: 120px 24px 60px;
+      }
+
+      .feature {
+        grid-template-columns: 1fr;
+      }
+
+      .feature:nth-child(even) {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <div class="logo">Netflix</div>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#tv-shows">TV Shows</a>
+      <a href="#movies">Movies</a>
+      <a href="#new-popular">New &amp; Popular</a>
+      <a href="#my-list">My List</a>
+    </nav>
+    <div class="button-small">Sign In</div>
+  </header>
 
-    <header class="hero-section">
-        <nav class="navbar">
-            <div class="logo">NETFLIX</div>
-            <button class="sign-in-btn">Sign In</button>
-        </nav>
-
-        <div class="hero-content">
-            <h1>Unlimited movies, TV shows and more</h1>
-            <p class="subtitle">Starts at ₹149. Join today, cancel anytime.</p>
-            <p class="cta-text">Ready to watch? Enter your email to create or restart your membership.</p>
-
-            <div class="email-form">
-                <input type="email" placeholder="Email address" class="email-input">
-                <button class="get-started-btn">Get Started &gt;</button>
-            </div>
-        </div>
-    </header>
-
-    <section class="feature-container">
-        <!-- Row 1 -->
-        <div class="feature-row">
-            <div class="feature-text">
-                <h2>Enjoy on your TV</h2>
-                <p>Watch on smart TVs, PlayStation, Xbox, Chromecast, Apple TV, Blu-ray players and more.</p>
-            </div>
-            <div class="feature-img-box">
-                <img src="https://picsum.photos" alt="TV Streaming">
-            </div>
-        </div>
-
-        <div class="feature-row reverse">
-            <div class="feature-text">
-                <h2>Download your shows to watch offline</h2>
-                <p>Save your favourites easily and always have something to watch.</p>
-            </div>
-            <div class="feature-img-box">
-                <img src="https://picsum.photos" alt="Mobile Downloading">
-            </div>
-        </div>
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <h1>Unlimited movies, TV shows, and more.</h1>
+        <p>Watch anywhere. Cancel anytime. Ready to watch? Enter your email to create or restart your membership.</p>
+        <form class="email-form">
+          <input type="email" placeholder="Email address" aria-label="Email address" />
+          <button type="submit">Get Started</button>
+        </form>
+      </div>
     </section>
 
+    <section class="section" id="tv-shows">
+      <div class="feature">
+        <div class="feature-content">
+          <h2>Enjoy on your TV.</h2>
+          <p>Watch on Smart TVs, Playstation, Xbox, Chromecast, Apple TV, Blu-ray players, and more.</p>
+        </div>
+        <div class="feature-media">
+          <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/device-pile.png" alt="Netflix on TV" />
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="movies">
+      <div class="feature">
+        <div class="feature-media">
+          <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/mobile-0819.jpg" alt="Download and watch offline" />
+        </div>
+        <div class="feature-content">
+          <h2>Download your shows to watch offline.</h2>
+          <p>Save your favorites easily and always have something to watch.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="new-popular">
+      <div class="feature">
+        <div class="feature-content">
+          <h2>Watch everywhere.</h2>
+          <p>Stream unlimited movies and TV shows on your phone, tablet, laptop, and TV without paying more.</p>
+        </div>
+        <div class="feature-media">
+          <img src="https://assets.nflxext.com/ffe/siteui/acquisition/ourStory/fuji/desktop/video-tv-0819.jpg" alt="Watch everywhere" />
+        </div>
+      </div>
+    </section>
+
+    <section class="genres">
+      <h2>Popular genres</h2>
+      <div class="genre-grid">
+        <div class="genre-card">Action</div>
+        <div class="genre-card">Comedy</div>
+        <div class="genre-card">Drama</div>
+        <div class="genre-card">Crime</div>
+        <div class="genre-card">Romance</div>
+        <div class="genre-card">Sci-Fi</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div>
+      Questions? Call 000-800-040-1843
+    </div>
+    <div class="footer-links">
+      <a href="#">FAQ</a>
+      <a href="#">Help Center</a>
+      <a href="#">Terms of Use</a>
+      <a href="#">Privacy</a>
+      <a href="#">Cookie Preferences</a>
+      <a href="#">Corporate Information</a>
+    </div>
+  </footer>
 </body>
 </html>
